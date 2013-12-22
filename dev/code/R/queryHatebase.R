@@ -128,7 +128,7 @@ queryHatebase <- function(
 
 		DF.output[i,'type'] <- LIST.json[['data']][[1]][[i]][['type']];
 
-		DF.output[i,'human_readable_type'] <- LIST.json[['data']][[1]][[i]][['human_readable_type']];
+		DF.output[i,'human.readable.type'] <- LIST.json[['data']][[1]][[i]][['human_readable_type']];
 		DF.output[i,'latitude'] <- LIST.json[['data']][[1]][[i]][['latitude']];
 		DF.output[i,'longitude'] <- LIST.json[['data']][[1]][[i]][['longitude']];
 		DF.output[i,'vocabulary'] <- LIST.json[['data']][[1]][[i]][['vocabulary']];
