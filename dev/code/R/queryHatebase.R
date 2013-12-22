@@ -69,22 +69,26 @@ queryHatebase <- function(
 		print( nchar(temp.json.string) );
 		write(x = temp.json.string, file = 'json-string.txt');
 		temp.json.string <- .remove.bad.characters(input.string = temp.json.string);
-		JSON.temp <- rjson::fromJSON(json_str = temp.json.string, unexpected.escape = "keep");
-		num.of.results.this.page <- as.integer(JSON.temp[['number_of_results_on_this_page']]);
-		old.num.of.rows.filled <- num.of.rows.filled;
-		num.of.rows.filled <- old.num.of.rows.filled + num.of.results.this.page;
-		DF.temp <- .convert.Hatebase.json.to.data.frame(LIST.json = JSON.temp);
-		rows.to.filled <- (1+old.num.of.rows.filled):(num.of.rows.filled);
-		DF.output[rows.to.filled,] <- DF.temp;
-		write.table(
-			append    = TRUE,
-			col.names = FALSE,
-			file      = 'Hatebase.csv',
-			x         = DF.temp,
-			quote     = FALSE,
-			sep       = '\t',
-			row.names = FALSE
-			);
+		JSON.temp <- try(rjson::fromJSON(json_str = temp.json.string, unexpected.escape = "keep"));
+		if ("try-error" == class(JSON.temp)) {
+			write(x = temp.json.string, file = paste0('json-string-',page,'.txt'));
+			} else {
+			num.of.results.this.page <- as.integer(JSON.temp[['number_of_results_on_this_page']]);
+			old.num.of.rows.filled <- num.of.rows.filled;
+			num.of.rows.filled <- old.num.of.rows.filled + num.of.results.this.page;
+			DF.temp <- .convert.Hatebase.json.to.data.frame(LIST.json = JSON.temp);
+			rows.to.filled <- (1+old.num.of.rows.filled):(num.of.rows.filled);
+			DF.output[rows.to.filled,] <- DF.temp;
+			write.table(
+				append    = TRUE,
+				col.names = FALSE,
+				file      = 'Hatebase.csv',
+				x         = DF.temp,
+				quote     = FALSE,
+				sep       = '\t',
+				row.names = FALSE
+				);
+			}
 		}
 
 	return(DF.output);
