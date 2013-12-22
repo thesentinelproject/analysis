@@ -120,125 +120,14 @@ queryHatebase <- function(
 
 	for (i in 1:n.rows) {
 		print(paste0("row = ",i));
-		DF.output[i,'sighting.id'] <- LIST.json[['data']][[1]][[i]][['sighting_id']];
-		DF.output[i,'date'] <- LIST.json[['data']][[1]][[i]][['date']];
-		DF.output[i,'country'] <- LIST.json[['data']][[1]][[i]][['country']];
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['city_or_community']])) {
-			DF.output[i,'city.or.community'] <- LIST.json[['data']][[1]][[i]][['city_or_community']];
-			} else {
-			DF.output[i,'city.or.community'] <- NA;
+		for (field in names(LIST.json[['data']][[1]][[i]])) {
+			DF.column.name <- gsub(x = field, pattern = '_', replacement = '.');
+			DF.output[i,DF.column.name] <- .get.field(
+				LIST.json   = LIST.json,
+				i           = i,
+				column.name = field
+				);
 			}
-
-		DF.output[i,'type'] <- LIST.json[['data']][[1]][[i]][['type']];
-
-		DF.output[i,'human.readable.type'] <- LIST.json[['data']][[1]][[i]][['human_readable_type']];
-		DF.output[i,'latitude'] <- LIST.json[['data']][[1]][[i]][['latitude']];
-		DF.output[i,'longitude'] <- LIST.json[['data']][[1]][[i]][['longitude']];
-		DF.output[i,'vocabulary'] <- LIST.json[['data']][[1]][[i]][['vocabulary']];
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['variant_of']])) {
-			DF.output[i,'variant_of'] <- LIST.json[['data']][[1]][[i]][['variant_of']];
-			} else {
-			DF.output[i,'variant_of'] <- NA;
-			}
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['pronunciation']])) {
-			DF.output[i,'pronunciation'] <- LIST.json[['data']][[1]][[i]][['pronunciation']];
-			} else {
-			DF.output[i,'pronunciation'] <- NA;
-			}
-
-		print("AAA");
-
-		DF.output[i,'meaning'] <- LIST.json[['data']][[1]][[i]][['meaning']];
-		print("AAA-1");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['language']])) {
-			DF.output[i,'language'] <- LIST.json[['data']][[1]][[i]][['language']];
-			} else {
-			DF.output[i,'language'] <- NA;
-			}
-
-		print("AAA-2");
-		DF.output[i,'about.ethnicity'] <- LIST.json[['data']][[1]][[i]][['about_ethnicity']];
-		print("AAA-3");
-		DF.output[i,'about.nationality'] <- LIST.json[['data']][[1]][[i]][['about_nationality']];
-		print("AAA-4");
-		DF.output[i,'about.religion'] <- LIST.json[['data']][[1]][[i]][['about_religion']];
-		print("AAA-5");
-		DF.output[i,'about.gender'] <- LIST.json[['data']][[1]][[i]][['about_gender']];
-		print("AAA-6");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['about_sexual_orientation']])) {
-			DF.output[i,'about.sexual.orientation'] <- LIST.json[['data']][[1]][[i]][['about_sexual_orientation']];
-			} else {
-			DF.output[i,'about.sexual.orientation'] <- NA;
-			}
-		print("AAA-7");
-
-		DF.output[i,'about.disability'] <- LIST.json[['data']][[1]][[i]][['about_disability']];
-		DF.output[i,'about.class'] <- LIST.json[['data']][[1]][[i]][['about_class']];
-		DF.output[i,'archaic'] <- LIST.json[['data']][[1]][[i]][['archaic']];
-
-		print("BBB");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['offensiveness']])) {
-			DF.output[i,'offensiveness']    <- LIST.json[['data']][[1]][[i]][['offensiveness']];
-			} else {
-			DF.output[i,'offensiveness'] <- NA;
-			}
-
-		print("CCC");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['number_of_revisions']])) {
-			DF.output[i,'number.of.revisions'] <- LIST.json[['data']][[1]][[i]][['number_of_revisions']];
-			} else {
-			DF.output[i,'number.of.revisions'] <- NA;
-			}
-
-		print("DDD");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['number_of_variants']])) {
-			DF.output[i,'number.of.variants'] <- LIST.json[['data']][[1]][[i]][['number_of_variants']];
-			} else {
-			DF.output[i,'number.of.variants'] <- NA;
-			}
-
-		print("EEE");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['variants']])) {
-			DF.output[i,'variants'] <- LIST.json[['data']][[1]][[i]][['variants']];
-			} else {
-			DF.output[i,'variants'] <- NA;
-			}
-
-		print("FFF");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['number_of_sightings']])) {
-			DF.output[i,'number.of.sightings'] <- LIST.json[['data']][[1]][[i]][['number_of_sightings']];
-			} else {
-			DF.output[i,'number.of.sightings'] <- NA;
-			}
-
-		print("GGG");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['last_sighting']])) {
-			DF.output[i,'last.sighting'] <- LIST.json[['data']][[1]][[i]][['last_sighting']];
-			} else {
-			DF.output[i,'last.sighting'] <- NA;
-			}
-
-		print("HHH");
-
-		if (0 < length(LIST.json[['data']][[1]][[i]][['number_of_citations']])) {
-			DF.outpu.[i,'number.of.citations'] <- LIST.json[['data']][[1]][[i]][['number_of_citations']];
-			} else {
-			DF.output[i,'number.of.citations'] <- NA;
-			}
-
-		print("III");
-
 		}
 
 	# remove carriage-return and new-line characters in the event.title and description fields
@@ -255,6 +144,14 @@ queryHatebase <- function(
 
 	return(DF.output);
 
+	}
+
+.get.field <- function(LIST.json = NULL, i = NULL, column.name = NULL) {
+	if (0 < length(LIST.json[['data']][[1]][[i]][[column.name]])) {
+		return(LIST.json[['data']][[1]][[i]][[column.name]]);
+		} else {
+		return(NA);
+		}
 	}
 
 .get.Hatebase.colnames <- function() {
