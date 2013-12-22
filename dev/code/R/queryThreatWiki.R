@@ -18,7 +18,7 @@ queryThreatWiki <- function(
 	n.rows <- length(LIST.json);
 	n.cols <- 15;
 	DF.output <- data.frame(
-		matrix(character(length = n.rows * n.cols), nrow = n.rows, ncol = 15),
+		matrix(character(length = n.rows * n.cols), nrow = n.rows, ncol = n.cols),
 		stringsAsFactors = FALSE
 		);
 	colnames(DF.output) <- c(
