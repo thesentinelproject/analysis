@@ -94,9 +94,9 @@ queryHatebase <- function(
 ### AUXILIARY FUNCTIONS ############################################################################
 .remove.bad.characters <- function(input.string = NULL) {
 	output.string <- input.string;
-	output.string <- gsub(x = output.string, pattern = '\\\\m',   replacement = '' );
-	output.string <- gsub(x = output.string, pattern = '\\\\o',   replacement = 'o');
-	output.string <- gsub(x = output.string, pattern = '\\\\[:space:]+', replacement = '' );
+	#output.string <- gsub(x = output.string, pattern = '\\\\m',   replacement = '' );
+	#output.string <- gsub(x = output.string, pattern = '\\\\o',   replacement = 'o');
+	#output.string <- gsub(x = output.string, pattern = '\\\\[:space:]+', replacement = '' );
 	return(output.string);
 	}
 
