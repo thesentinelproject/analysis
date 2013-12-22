@@ -19,30 +19,25 @@ queryHatebase <- function(
 		format
 		);
 
-	print('URL.hatebase');
-	print( URL.hatebase );
-
 	temp.json.string <- RCurl::getURL(URL.hatebase);
 	temp.json.string <- .remove.bad.characters(input.string = temp.json.string);
 	JSON.temp <- rjson::fromJSON(json_str = temp.json.string, unexpected.escape = "keep");
-	save(JSON.temp, file = 'Hatebase.RData');
-
-	print('length(JSON.temp)');
-	print( length(JSON.temp) );
-	print('names(JSON.temp)');
-	print( names(JSON.temp) );
 
 	num.of.results <- as.numeric(JSON.temp[['number_of_results']]);
 	num.of.results.this.page <- as.numeric(JSON.temp[['number_of_results_on_this_page']]);
 	num.of.pages <- as.integer(ceiling(num.of.results / num.of.results.this.page));
 
-	print("YYY");
-	DF.output <- data.frame(matrix(character(28*num.of.results),nrow=num.of.results,ncol=28));
-	print("ZZZ");
+	DF.output <- data.frame(
+		matrix(character(28*num.of.results),nrow=num.of.results,ncol=28),
+		stringsAsFactors = FALSE
+		);
 	colnames(DF.output) <- .get.Hatebase.colnames();
 
 	DF.temp <- .convert.Hatebase.json.to.data.frame(LIST.json = JSON.temp);
 	DF.output[1:num.of.results.this.page,] <- DF.temp;
+
+	print('str(DF.output)');
+	print( str(DF.output) );
 
 	write.table(
 		append    = FALSE,
@@ -58,17 +53,8 @@ queryHatebase <- function(
 	for (page in 2:num.of.pages) {
 		print(paste0("page = ",page));
 		temp.url <- paste0(URL.hatebase,'/page%3D',page);
-		print('temp.url');
-		print( temp.url );
 		temp.json.string <- RCurl::getURL(temp.url);
-		print('length(temp.json.string)');
-		print( length(temp.json.string) );
-		print('str(temp.json.string)');
-		print( str(temp.json.string) );
-		print('nchar(temp.json.string)');
-		print( nchar(temp.json.string) );
-		write(x = temp.json.string, file = 'json-string.txt');
-		temp.json.string <- .remove.bad.characters(input.string = temp.json.string);
+#		temp.json.string <- .remove.bad.characters(input.string = temp.json.string);
 		JSON.temp <- try(rjson::fromJSON(json_str = temp.json.string, unexpected.escape = "keep"));
 		if ("try-error" == class(JSON.temp)) {
 			write(x = temp.json.string, file = paste0('json-string-',page,'.txt'));
@@ -88,6 +74,8 @@ queryHatebase <- function(
 				sep       = '\t',
 				row.names = FALSE
 				);
+			print('str(DF.output)');
+			print( str(DF.output) );
 			}
 		}
 
@@ -107,10 +95,11 @@ queryHatebase <- function(
 .convert.Hatebase.json.to.data.frame <- function(LIST.json = NULL) {
 
 	n.rows <- as.integer(LIST.json[['number_of_results_on_this_page']]);
-	print('str(n.rows)');
-	print( str(n.rows) );
-	print('n.rows');
-	print( n.rows );
+	#print('str(n.rows)');
+	#print( str(n.rows) );
+	#print('n.rows');
+	#print( n.rows );
+
 	n.cols <- 28;
 	DF.output <- data.frame(
 		matrix(character(length = n.rows * n.cols), nrow = n.rows, ncol = n.cols),
@@ -119,7 +108,7 @@ queryHatebase <- function(
 	colnames(DF.output) <- .get.Hatebase.colnames();
 
 	for (i in 1:n.rows) {
-		print(paste0("row = ",i));
+		#print(paste0("row = ",i));
 		for (field in names(LIST.json[['data']][[1]][[i]])) {
 			DF.column.name <- gsub(x = field, pattern = '_', replacement = '.');
 			DF.output[i,DF.column.name] <- .get.field(
