@@ -45,7 +45,7 @@ downloadHatebase <- function(
 			);
 		}
 
-	return(DF.output);
+	return(1);
 
 	}
 
