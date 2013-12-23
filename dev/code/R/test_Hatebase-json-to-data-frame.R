@@ -16,7 +16,8 @@ source(paste0(code.directory,"/read-table-Hatebase.R"));
 ####################################################################################################
 setwd(output.directory);
 
-page.number <- 68;
+#page.number <- 68;
+page.number <- 50;
 my.json.string <- .read.json.file(filename = paste0(data.directory,'/hatebase-json-',page.number,'.txt'));
 str(my.json.string);
 nchar(my.json.string);
