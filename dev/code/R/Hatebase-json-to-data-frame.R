@@ -1,35 +1,19 @@
 
 Hatebase.json.to.data.frame <- function(json.string = NULL) {
-
-	require(rjson);
-
-	JSON.temp <- rjson::fromJSON(
-		json_str = .remove.bad.characters(input.string = json.string),
-		unexpected.escape = "keep"
-		);
-
+	require(RJSONIO);
+	JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
 	DF.output <- .convert.Hatebase.json.to.data.frame(LIST.json = JSON.temp);
-
 	return(DF.output);
-
 	}
 
 ### AUXILIARY FUNCTIONS ############################################################################
-.remove.bad.characters <- function(input.string = NULL) {
-	output.string <- input.string;
-	output.string <- gsub(x = output.string, pattern = "(\n|\r)+",   replacement = '');
-	#output.string <- gsub(x = output.string, pattern = "[:space:]+", replacement = '');
-	#output.string <- gsub(x = output.string, pattern = '\\\\m',   replacement = '' );
-	#output.string <- gsub(x = output.string, pattern = '\\\\o',   replacement = 'o');
-	return(output.string);
-	}
-
 .convert.Hatebase.json.to.data.frame <- function(
 	LIST.json = NULL,
 	n.cols    = length(.get.Hatebase.colnames())
 	) {
 
-	n.rows <- as.integer(LIST.json[['number_of_results_on_this_page']]);
+	#n.rows <- as.integer(LIST.json[['number_of_results_on_this_page']]);
+	n.rows <- length(LIST.json[['data']][['datapoint']]);
 
 	DF.output <- data.frame(
 		matrix(character(length = n.rows * n.cols), nrow = n.rows, ncol = n.cols),
@@ -38,7 +22,7 @@ Hatebase.json.to.data.frame <- function(json.string = NULL) {
 	colnames(DF.output) <- .get.Hatebase.colnames();
 
 	for (i in 1:n.rows) {
-		for (field in names(LIST.json[['data']][[1]][[i]])) {
+		for (field in names(LIST.json[['data']][['datapoint']][[i]])) {
 			DF.column.name <- gsub(x = field, pattern = '_', replacement = '.');
 			DF.output[i,DF.column.name] <- .get.field(
 				LIST.json   = LIST.json,
@@ -83,8 +67,8 @@ Hatebase.json.to.data.frame <- function(json.string = NULL) {
 	}
 
 .get.field <- function(LIST.json = NULL, i = NULL, column.name = NULL) {
-	if (0 < length(LIST.json[['data']][[1]][[i]][[column.name]])) {
-		return(LIST.json[['data']][[1]][[i]][[column.name]]);
+	if (0 < length(LIST.json[['data']][['datapoint']][[i]][[column.name]])) {
+		return(LIST.json[['data']][['datapoint']][[i]][[column.name]]);
 		} else {
 		return(NA);
 		}

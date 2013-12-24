@@ -8,12 +8,13 @@ tmp.directory    <- command.arguments[4];
 ####################################################################################################
 library(RCurl);
 library(XML);
-library(rjson);
+library(RJSONIO);
 
 setwd(output.directory);
 
 ####################################################################################################
 source(paste0(code.directory,"/downloadHatebase.R"));
+source(paste0(code.directory,"/remove-bad-characters.R"));
 DF.Hatebase <- downloadHatebase(api.key = hatebase.api.key);
 str(DF.Hatebase);
 

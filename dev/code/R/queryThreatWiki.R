@@ -4,11 +4,14 @@ queryThreatWiki <- function(
 	) {
 
 	require(RCurl);
-	require(rjson);
+	require(RJSONIO);
 
-	my.json.string <- RCurl::getURL(paste0(api.url,"/datapoint"));
-	my.json        <- rjson::fromJSON(json_str = my.json.string);
-	DF.ThreatWiki  <- .convert.ThreatWiki.json.to.data.frame(LIST.json = my.json);
+	my.json <- RJSONIO::fromJSON(
+		content = .remove.bad.characters(
+			input.string = RCurl::getURL(paste0(api.url,"/datapoint"));
+			)
+		);
+	DF.ThreatWiki <- .convert.ThreatWiki.json.to.data.frame(LIST.json = my.json);
 
 	}
 

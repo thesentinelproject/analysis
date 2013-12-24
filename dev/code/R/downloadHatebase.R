@@ -9,7 +9,7 @@ downloadHatebase <- function(
 	) {
 
 	require(RCurl);
-	require(rjson);
+	require(RJSONIO);
 
 	URL.hatebase <- paste0(
 		api.url,
@@ -21,16 +21,13 @@ downloadHatebase <- function(
 
 	filename.prefix <- paste0('hatebase-',download.format);
 
-	temp.json.string <- RCurl::getURL(URL.hatebase);
+	json.string <- RCurl::getURL(URL.hatebase);
 	write(
-		x    = temp.json.string,
+		x    = json.string,
 		file = paste0(filename.prefix,'-01.txt')
 		);
 
-	JSON.temp <- rjson::fromJSON(
-		json_str = temp.json.string,
-		unexpected.escape = "keep"
-		);
+	JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
 
 	num.of.results <- as.numeric(JSON.temp[['number_of_results']]);
 	num.of.results.this.page <- as.numeric(JSON.temp[['number_of_results_on_this_page']]);

@@ -9,7 +9,7 @@ queryHatebase <- function(
 	) {
 
 	require(RCurl);
-	require(rjson);
+	require(RJSONIO);
 
 	URL.hatebase <- paste0(
 		api.url,
@@ -21,7 +21,7 @@ queryHatebase <- function(
 
 	temp.json.string <- RCurl::getURL(URL.hatebase);
 	temp.json.string <- .remove.bad.characters(input.string = temp.json.string);
-	JSON.temp <- rjson::fromJSON(json_str = temp.json.string, unexpected.escape = "keep");
+	JSON.temp <- RJSONIO::fromJSON(content = temp.json.string);
 
 	num.of.results <- as.numeric(JSON.temp[['number_of_results']]);
 	num.of.results.this.page <- as.numeric(JSON.temp[['number_of_results_on_this_page']]);
@@ -54,8 +54,9 @@ queryHatebase <- function(
 		print(paste0("page = ",page));
 		temp.url <- paste0(URL.hatebase,'/page%3D',page);
 		temp.json.string <- RCurl::getURL(temp.url);
-#		temp.json.string <- .remove.bad.characters(input.string = temp.json.string);
-		JSON.temp <- try(rjson::fromJSON(json_str = temp.json.string, unexpected.escape = "keep"));
+		JSON.temp <- try(RJSONIO::fromJSON(
+			content = .remove.bad.characters(input.string = temp.json.string);
+			));
 		if ("try-error" == class(JSON.temp)) {
 			write(x = temp.json.string, file = paste0('json-string-',page,'.txt'));
 			} else {

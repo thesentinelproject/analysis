@@ -7,12 +7,13 @@ tmp.directory    <- command.arguments[3];
 ####################################################################################################
 library(RCurl);
 library(XML);
-library(rjson);
+library(RJSONIO);
 
 setwd(output.directory);
 
 ####################################################################################################
 source(paste0(code.directory,"/queryThreatWiki.R"));
+source(paste0(code.directory,"/remove-bad-characters.R"));
 DF.ThreatWiki <- queryThreatWiki();
 str(DF.ThreatWiki);
 write.table(
