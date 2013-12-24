@@ -19,6 +19,7 @@ read.table.Hatebase <- function(filename = NULL) {
 		stringsAsFactors = FALSE
 		);
 
+	### re-casting the columns of DF.output to desired data types
 	DF.output[,'sighting.id'] <- as.integer(  DF.output[,'sighting.id']);
 	DF.output[,'date']        <- as.Date(     DF.output[,'date']);
 
@@ -54,6 +55,11 @@ read.table.Hatebase <- function(filename = NULL) {
 	DF.output[,'number.of.variants']  <- as.integer(  DF.output[,'number.of.variants']);
 	DF.output[,'number.of.sightings'] <- as.integer(  DF.output[,'number.of.sightings']);
 	DF.output[,'number.of.citations'] <- as.integer(  DF.output[,'number.of.citations']);
+
+
+	### The country code of Namibia is: NA
+	### Hence, 'NA' appearing in DF.output[,'country'] is NOT 'NA' in R ("Not Available")
+	DF.output[is.na(DF.output[,'country']),'country'] <- "NA";
 
 	return(DF.output);
 
