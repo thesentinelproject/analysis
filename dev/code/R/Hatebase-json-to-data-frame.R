@@ -37,7 +37,7 @@ Hatebase.json.to.data.frame <- function(
 			append    = FALSE,
 			col.names = TRUE,
 			file      = filename,
-			x         = DF.temp,
+			x         = DF.Hatebase,
 			quote     = TRUE,
 			sep       = '\t',
 			row.names = FALSE
