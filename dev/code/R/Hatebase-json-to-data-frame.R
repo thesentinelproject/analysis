@@ -2,7 +2,7 @@
 Hatebase.json.to.data.frame <- function(
 	path     = NULL,
 	pattern  = "^hatebase.+\\.json$",
-	filename = 'Hatebase.csv'
+	filename = NULL
 	) {
 
 	hatebase.files <- list.files(path = path, pattern = pattern);

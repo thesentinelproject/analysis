@@ -17,7 +17,11 @@ source(paste0(code.directory,"/remove-bad-characters.R"));
 ####################################################################################################
 setwd(output.directory);
 
-DF.Hatebase <- Hatebase.json.to.data.frame(path = data.directory, pattern = "^hatebase.+\\.txt$");
+DF.Hatebase <- Hatebase.json.to.data.frame(
+	path     = data.directory,
+	pattern  = "^hatebase.+\\.txt$",
+	filename = 'Hatebase.csv'
+	);
 str(DF.Hatebase);
 
 FILE.Hatebase <- 'test-Hatebase.csv';
