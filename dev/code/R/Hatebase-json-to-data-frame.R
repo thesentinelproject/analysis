@@ -11,6 +11,16 @@ Hatebase.json.to.data.frame <- function(
 	temp.json.string <- .read.json.file(filename = paste0(path,'/',hatebase.files[1]));
 	DF.Hatebase <- .json.string.to.data.frame(json.string = temp.json.string);
 	
+	write.table(
+		append    = FALSE,
+		col.names = TRUE,
+		file      = paste0(gsub(x = hatebase.files[1], pattern = '\\.', replacement = '-'),'.csv'),
+		x         = DF.Hatebase,
+		quote     = TRUE,
+		sep       = '\t',
+		row.names = FALSE
+		);
+
 	for (i in 2:length(hatebase.files)) {
 
 		hatebase.file <- hatebase.files[i];
