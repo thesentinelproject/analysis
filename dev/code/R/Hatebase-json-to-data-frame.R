@@ -10,15 +10,10 @@ Hatebase.json.to.data.frame <- function(
 	print(paste0("processing: ",hatebase.files[1]));
 	temp.json.string <- .read.json.file(filename = paste0(path,'/',hatebase.files[1]));
 	DF.Hatebase <- .json.string.to.data.frame(json.string = temp.json.string);
-	
-	write.table(
-		append    = FALSE,
-		col.names = TRUE,
-		file      = paste0(gsub(x = hatebase.files[1], pattern = '\\.', replacement = '-'),'.csv'),
-		x         = DF.Hatebase,
-		quote     = TRUE,
-		sep       = '\t',
-		row.names = FALSE
+
+	write.table.Hatebase(
+		DF.input = DF.Hatebase,
+		filename = paste0(gsub(x = hatebase.files[1], pattern = '\\.', replacement = '-'),'.csv')
 		);
 
 	for (i in 2:length(hatebase.files)) {
@@ -27,15 +22,10 @@ Hatebase.json.to.data.frame <- function(
 		print(paste0("processing: ",hatebase.file));
 		temp.json.string <- .read.json.file(filename = paste0(path,'/',hatebase.file));
 		DF.temp <- .json.string.to.data.frame(json.string = temp.json.string);
-		
-		write.table(
-			append    = FALSE,
-			col.names = TRUE,
-			file      = paste0(gsub(x = hatebase.file, pattern = '\\.', replacement = '-'),'.csv'),
-			x         = DF.temp,
-			quote     = TRUE,
-			sep       = '\t',
-			row.names = FALSE
+
+		write.table.Hatebase(
+			DF.input = DF.temp,
+			filename = paste0(gsub(x = hatebase.file, pattern = '\\.', replacement = '-'),'.csv')
 			);
 
 		DF.Hatebase <- rbind(DF.Hatebase,DF.temp);
@@ -43,15 +33,7 @@ Hatebase.json.to.data.frame <- function(
 		}
 
 	if (!is.null(filename)) {
-		write.table(
-			append    = FALSE,
-			col.names = TRUE,
-			file      = filename,
-			x         = DF.Hatebase,
-			quote     = TRUE,
-			sep       = '\t',
-			row.names = FALSE
-			);
+		write.table.Hatebase(DF.input = DF.Hatebase, filename = filename);
 		}
 
 	return(DF.Hatebase);

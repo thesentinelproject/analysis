@@ -13,6 +13,7 @@ source(paste0(code.directory,"/Hatebase-json-to-data-frame.R"));
 source(paste0(code.directory,"/read-json-file.R"));
 source(paste0(code.directory,"/read-table-Hatebase.R"));
 source(paste0(code.directory,"/remove-bad-characters.R"));
+source(paste0(code.directory,"/write-table-Hatebase.R"));
 
 ####################################################################################################
 setwd(output.directory);
