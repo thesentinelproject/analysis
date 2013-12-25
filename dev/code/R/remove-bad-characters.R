@@ -10,7 +10,7 @@
 	# Note that it ends with '\"', where the escape character immediately preceding the
 	# right-delimiting double-quotation mark causes a parsing error in R.
 	# The following gsub statement removes the above offending escape character.
-	output.string <- gsub(x = output.string, pattern = '\\\\\",', replacement = '",');
+	output.string <- gsub(x = output.string, pattern = '\\\\\",\\"', replacement = '","');
 
 	return(output.string);
 

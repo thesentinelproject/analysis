@@ -17,10 +17,17 @@ source(paste0(code.directory,"/remove-bad-characters.R"));
 ####################################################################################################
 setwd(output.directory);
 
-DF.Hatebase <- Hatebase.json.to.data.frame(path = data.directory, pattern = "^hatebase.+\\.txt$");
-str(DF.Hatebase);
+#page.number <- 68;
+page.number <- 51;
+my.json.string <- .read.json.file(filename = paste0(data.directory,'/hatebase-json-',page.number,'.txt'));
+str(my.json.string);
+nchar(my.json.string);
 
-FILE.Hatebase <- 'test-Hatebase.csv';
+DF.Hatebase <- .json.string.to.data.frame(json.string = my.json.string);
+str(DF.Hatebase);
+sum(is.na(DF.Hatebase[,'country']));
+
+FILE.Hatebase <- paste0('Hatebase-',page.number,'.csv');
 write.table(
 	append    = FALSE,
 	col.names = TRUE,
@@ -33,8 +40,12 @@ write.table(
 
 DF.retrieved <- read.table.Hatebase(filename = FILE.Hatebase);
 str(DF.retrieved);
+sum(is.na(DF.retrieved[,'country']));
 
 all.equal(DF.Hatebase,DF.retrieved);
+
+unequal <- DF.Hatebase[,'meaning'] != DF.retrieved[,'meaning'];
+cbind(DF.Hatebase[unequal,'meaning'],DF.retrieved[unequal,'meaning']);
 
 ####################################################################################################
 

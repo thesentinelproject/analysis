@@ -1,12 +1,63 @@
 
-Hatebase.json.to.data.frame <- function(json.string = NULL) {
+Hatebase.json.to.data.frame <- function(
+	path     = NULL,
+	pattern  = "^hatebase.+\\.json$",
+	filename = 'Hatebase.csv'
+	) {
+
+	hatebase.files <- list.files(path = path, pattern = pattern);
+
+	print(paste0("processing: ",hatebase.files[1]));
+	temp.json.string <- .read.json.file(filename = paste0(path,'/',hatebase.files[1]));
+	DF.Hatebase <- .json.string.to.data.frame(json.string = temp.json.string);
+	
+	for (i in 2:length(hatebase.files)) {
+
+		hatebase.file <- hatebase.files[i];
+		print(paste0("processing: ",hatebase.file));
+		temp.json.string <- .read.json.file(filename = paste0(path,'/',hatebase.file));
+		DF.temp <- .json.string.to.data.frame(json.string = temp.json.string);
+		
+		write.table(
+			append    = FALSE,
+			col.names = TRUE,
+			file      = paste0(hatebase.file,'.csv'),
+			x         = DF.temp,
+			quote     = TRUE,
+			sep       = '\t',
+			row.names = FALSE
+			);
+
+		DF.Hatebase <- rbind(DF.Hatebase,DF.temp);
+
+		}
+
+	if (!is.null(filename)) {
+		write.table(
+			append    = FALSE,
+			col.names = TRUE,
+			file      = filename,
+			x         = DF.temp,
+			quote     = TRUE,
+			sep       = '\t',
+			row.names = FALSE
+			);
+		}
+
+	return(DF.Hatebase);
+
+	}
+
+### AUXILIARY FUNCTIONS ############################################################################
+.json.string.to.data.frame <- function(json.string = NULL) {
+	require(rjson);
 	require(RJSONIO);
-	JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
+	#JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
+	JSON.temp <- rjson::fromJSON(json_str = .remove.bad.characters(input.string = json.string), unexpected.escape = "keep");
 	DF.output <- .convert.Hatebase.json.to.data.frame(LIST.json = JSON.temp);
 	return(DF.output);
 	}
 
-### AUXILIARY FUNCTIONS ############################################################################
 .convert.Hatebase.json.to.data.frame <- function(
 	LIST.json = NULL,
 	n.cols    = length(.get.Hatebase.colnames())
