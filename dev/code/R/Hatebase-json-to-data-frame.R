@@ -50,10 +50,10 @@ Hatebase.json.to.data.frame <- function(
 
 ### AUXILIARY FUNCTIONS ############################################################################
 .json.string.to.data.frame <- function(json.string = NULL) {
-	require(rjson);
+	#require(rjson);
+	#JSON.temp <- rjson::fromJSON(json_str = .remove.bad.characters(input.string = json.string), unexpected.escape = "keep");
 	require(RJSONIO);
 	JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
-	#JSON.temp <- rjson::fromJSON(json_str = .remove.bad.characters(input.string = json.string), unexpected.escape = "keep");
 	DF.output <- .convert.Hatebase.json.to.data.frame(LIST.json = JSON.temp);
 	return(DF.output);
 	}
