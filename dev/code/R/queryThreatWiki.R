@@ -8,7 +8,7 @@ queryThreatWiki <- function(
 
 	my.json <- RJSONIO::fromJSON(
 		content = .remove.bad.characters(
-			input.string = RCurl::getURL(paste0(api.url,"/datapoint"));
+			input.string = RCurl::getURL(paste0(api.url,"/datapoint"))
 			)
 		);
 	DF.ThreatWiki <- .convert.ThreatWiki.json.to.data.frame(LIST.json = my.json);
