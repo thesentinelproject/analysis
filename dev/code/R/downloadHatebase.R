@@ -5,6 +5,8 @@ downloadHatebase <- function(
 	sub.increment   = 0,
 	query.type      = 'sightings',
 	download.format = 'json',
+	filename.prefix = 'hatebase',
+	file.extension  = download.format,
 	api.key         = NULL
 	) {
 
@@ -19,12 +21,10 @@ downloadHatebase <- function(
 		download.format
 		);
 
-	filename.prefix <- paste0('hatebase-',download.format);
-
 	json.string <- RCurl::getURL(URL.hatebase);
 	write(
 		x    = json.string,
-		file = paste0(filename.prefix,'-01.txt')
+		file = paste0(filename.prefix,'-01.',file.extension)
 		);
 
 	JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
@@ -38,7 +38,7 @@ downloadHatebase <- function(
 		print(paste0("page = ",page));
 		write(
 			x    = RCurl::getURL(paste0(URL.hatebase,'/page%3D',page)),
-			file = paste0(filename.prefix,'-',formatC(page,width=2,format="d",flag="0"),'.txt')
+			file = paste0(filename.prefix,'-',formatC(page,width=2,format="d",flag="0"),'.',file.extension)
 			);
 		}
 
