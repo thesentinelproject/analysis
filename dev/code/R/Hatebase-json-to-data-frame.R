@@ -21,7 +21,7 @@ Hatebase.json.to.data.frame <- function(
 		write.table(
 			append    = FALSE,
 			col.names = TRUE,
-			file      = paste0(hatebase.file,'.csv'),
+			file      = paste0(gsub(x = hatebase.file, pattern = '\\.', replacement = '-'),'.csv'),
 			x         = DF.temp,
 			quote     = TRUE,
 			sep       = '\t',
