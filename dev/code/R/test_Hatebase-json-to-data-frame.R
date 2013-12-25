@@ -19,7 +19,6 @@ setwd(output.directory);
 
 DF.Hatebase <- Hatebase.json.to.data.frame(
 	path     = data.directory,
-	pattern  = "^hatebase.+\\.txt$",
 	filename = 'Hatebase.csv'
 	);
 str(DF.Hatebase);
