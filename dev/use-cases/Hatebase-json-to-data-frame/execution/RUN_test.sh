@@ -1,6 +1,6 @@
 
  myRscript=../../../code/R/test_Hatebase-json-to-data-frame.R
-  data_dir=../../downloadHatebase/output.SNAPSHOT.2013-12-24.03
+  data_dir=../../downloadHatebase/output.SNAPSHOT.2013-12-25.01
   code_dir=../../../code/R
 output_dir=../output
    tmp_dir=${output_dir}/tmp
