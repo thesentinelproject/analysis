@@ -1,0 +1,19 @@
+Package: sentinelR
+Type: Package
+Title: The Sentinel Project R package
+Version: 0.0.1
+Date: 2014-01-18
+Author: Kenneth Chu
+Maintainer: Kenneth Chu <ken@thesentinelproject.org>
+Depends: R (>= 2.13.1), bitops, RCurl, RJSONIO
+Description: More about what it does (maybe more than one line)
+License: GPL-2
+LazyLoad: no
+Collate:
+	read-json-file.R
+	remove-bad-characters.R
+	read-table-Hatebase.R
+	write-table-Hatebase.R
+	Hatebase-json-to-data-frame.R
+	downloadHatebase.R
+	downloadThreatWiki.R

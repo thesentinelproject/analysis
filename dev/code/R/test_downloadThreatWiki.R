@@ -1,9 +1,8 @@
 
 command.arguments <- commandArgs(trailingOnly = TRUE);
-hatebase.api.key <- command.arguments[1];
-output.directory <- command.arguments[2];
-code.directory   <- command.arguments[3];
-tmp.directory    <- command.arguments[4];
+output.directory <- command.arguments[1];
+code.directory   <- command.arguments[2];
+tmp.directory    <- command.arguments[3];
 
 ####################################################################################################
 library(sentinelR);
@@ -11,12 +10,11 @@ library(sentinelR);
 setwd(output.directory);
 
 ####################################################################################################
-DF.Hatebase <- downloadHatebase(api.key = hatebase.api.key);
-str(DF.Hatebase);
-
+DF.ThreatWiki <- downloadThreatWiki();
+str(DF.ThreatWiki);
 write.table(
-	file      = 'Hatebase.csv',
-	x         = DF.Hatebase,
+	file      = 'ThreatWiki.csv',
+	x         = DF.ThreatWiki,
 	quote     = FALSE,
 	sep       = '\t',
 	row.names = FALSE,

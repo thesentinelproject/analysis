@@ -1,0 +1,10 @@
+# exportPattern("^[[:alpha:]]+")
+
+export(
+	downloadHatebase,
+	downloadThreatWiki,
+	Hatebase.json.to.data.frame,
+	read.table.Hatebase,
+	write.table.Hatebase
+	);
+
