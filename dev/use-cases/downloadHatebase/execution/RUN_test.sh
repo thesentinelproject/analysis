@@ -13,5 +13,6 @@ if [ ! -d ${tmp_dir} ]; then
 fi
 
 stdoutFile=stdout.R.`basename ${myRscript} .R`
-R --no-save --args ${HATEBASE_API_KEY} ${output_dir} ${tmp_dir} < ${myRscript} 2>&1 > ${stdoutFile}
+RBL=~/BLdata/private/Software/R-BL/bin/R-BL
+${RBL} --no-save --args ${HATEBASE_API_KEY} ${output_dir} ${tmp_dir} < ${myRscript} 2>&1 > ${stdoutFile}
 
