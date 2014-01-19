@@ -20,7 +20,7 @@ str(DF.Hatebase);
 write.table(
 	file      = paste0(output.directory,'/test-Hatebase.csv'),
 	x         = DF.Hatebase,
-	quote     = FALSE,
+	quote     = TRUE,
 	sep       = '\t',
 	row.names = FALSE,
 	col.names = TRUE
