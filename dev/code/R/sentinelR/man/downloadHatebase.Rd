@@ -19,7 +19,8 @@
 		convert.to.csv  = FALSE,
 		json.directory  = '.',
 		csv.directory   = '.',
-		csv.output.file = NULL
+		csv.output.file = NULL,
+		logger.name     = 'ROOT'
 		)
 	}
 \arguments{
@@ -41,7 +42,7 @@
 	\item{download.format}{
 		%%     ~~Describe \code{download.format} here~~
 		}
-		\item{filename.prefix}{
+	\item{filename.prefix}{
 		%%     ~~Describe \code{filename.prefix} here~~
 		}
 	\item{file.extension}{
@@ -57,6 +58,9 @@
 		%%     ~~Describe \code{file.extension} here~~
 		}
 	\item{csv.output.file}{
+		%%     ~~Describe \code{file.extension} here~~
+		}
+	\item{logger.name}{
 		%%     ~~Describe \code{file.extension} here~~
 		}
 	}

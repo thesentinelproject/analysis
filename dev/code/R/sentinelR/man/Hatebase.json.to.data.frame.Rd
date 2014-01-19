@@ -10,10 +10,11 @@
 	}
 \usage{
 	Hatebase.json.to.data.frame(
-		json.directory = '.',
-		csv.directory = '.',
-		pattern = '^hatebase.+\\.json$',
-		csv.output.file = NULL
+		json.directory  = '.',
+		csv.directory   = '.',
+		pattern         = '^hatebase.+\\.json$',
+		csv.output.file = NULL,
+		logger.name     = 'ROOT'
 		)
 	}
 \arguments{
@@ -27,6 +28,9 @@
 		%%     ~~Describe \code{pattern} here~~
 		}
 	\item{csv.output.file}{
+		%%     ~~Describe \code{filename} here~~
+		}
+	\item{logger.name}{
 		%%     ~~Describe \code{filename} here~~
 		}
 	}

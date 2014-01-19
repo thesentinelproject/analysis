@@ -3,12 +3,18 @@ Hatebase.json.to.data.frame <- function(
 	json.directory  = '.',
 	csv.directory   = '.',
 	pattern         = '^hatebase.+\\.json$',
-	csv.output.file = NULL
+	csv.output.file = NULL,
+	logger.name     = 'ROOT'
 	) {
+
+	logger.message <- 'START: converting Hatebase data from JSON to csv';
+	futile.logger::flog.info(name = logger.name, msg = logger.message);
 
 	hatebase.files <- list.files(path = json.directory, pattern = pattern);
 
-	print(paste0("processing: ",hatebase.files[1]));
+	logger.message <- paste0("processing: ",hatebase.files[1]);
+	futile.logger::flog.info(name = logger.name, msg = logger.message);
+
 	temp.json.string <- .read.json.file(filename = paste0(json.directory,'/',hatebase.files[1]));
 	DF.Hatebase <- .json.string.to.data.frame(json.string = temp.json.string);
 
@@ -20,7 +26,10 @@ Hatebase.json.to.data.frame <- function(
 	for (i in 2:length(hatebase.files)) {
 
 		hatebase.file <- hatebase.files[i];
-		print(paste0("processing: ",hatebase.file));
+
+		logger.message <- print(paste0("processing: ",hatebase.file));
+		futile.logger::flog.info(name = logger.name, msg = logger.message);
+
 		temp.json.string <- .read.json.file(filename = paste0(json.directory,'/',hatebase.file));
 		DF.temp <- .json.string.to.data.frame(json.string = temp.json.string);
 
@@ -33,8 +42,19 @@ Hatebase.json.to.data.frame <- function(
 
 		}
 
+	logger.message <- 'FINISH: converting Hatebase data from JSON to csv';
+	futile.logger::flog.info(name = logger.name, msg = logger.message);
+
 	if (!is.null(csv.output.file)) {
+
+		logger.message <- 'START: persisting Hatebase data';
+		futile.logger::flog.info(name = logger.name, msg = logger.message);
+
 		write.table.Hatebase(DF.input = DF.Hatebase, filename = csv.output.file);
+
+		logger.message <- 'FINISH: persisting Hatebase data';
+		futile.logger::flog.info(name = logger.name, msg = logger.message);
+
 		}
 
 	return(DF.Hatebase);
