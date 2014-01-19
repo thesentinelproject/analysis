@@ -1,25 +1,22 @@
 
 command.arguments <- commandArgs(trailingOnly = TRUE);
-data.directory   <- command.arguments[1];
-output.directory <- command.arguments[2];
-code.directory   <- command.arguments[3];
-tmp.directory    <- command.arguments[4];
+hatebase.api.key  <- command.arguments[1];
+output.directory  <- command.arguments[2];
+tmp.directory     <- command.arguments[3];
 
 ####################################################################################################
-library(RJSONIO);
+library(sentinelR);
 
 ####################################################################################################
-source(paste0(code.directory,"/Hatebase-json-to-data-frame.R"));
-source(paste0(code.directory,"/read-json-file.R"));
-source(paste0(code.directory,"/read-table-Hatebase.R"));
-source(paste0(code.directory,"/remove-bad-characters.R"));
-source(paste0(code.directory,"/write-table-Hatebase.R"));
+launch.directory <- getwd();
 
-####################################################################################################
+setwd(tmp.directory);
+downloadHatebase(api.key = hatebase.api.key);
+
+setwd(launch.directory);
 setwd(output.directory);
-
 DF.Hatebase <- Hatebase.json.to.data.frame(
-	path     = data.directory,
+	path     = tmp.directory,
 	filename = 'Hatebase.csv'
 	);
 str(DF.Hatebase);
