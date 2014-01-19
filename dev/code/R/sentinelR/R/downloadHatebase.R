@@ -7,7 +7,11 @@ downloadHatebase <- function(
 	query.type      = 'sightings',
 	download.format = 'json',
 	filename.prefix = 'hatebase',
-	file.extension  = download.format
+	file.extension  = download.format,
+	convert.to.csv  = FALSE,
+	json.directory  = '.',
+	csv.directory   = '.',
+	csv.output.file = NULL
 	) {
 
 	URL.hatebase <- paste0(
@@ -21,7 +25,7 @@ downloadHatebase <- function(
 	json.string <- RCurl::getURL(URL.hatebase);
 	write(
 		x    = json.string,
-		file = paste0(filename.prefix,'-01.',file.extension)
+		file = paste0(json.directory,'/',filename.prefix,'-01.',file.extension)
 		);
 
 	JSON.temp <- RJSONIO::fromJSON(content = .remove.bad.characters(input.string = json.string));
@@ -33,13 +37,23 @@ downloadHatebase <- function(
 	num.of.rows.filled <- num.of.results.this.page;
 	for (page in 2:num.of.pages) {
 		print(paste0("page = ",page));
+		FILE.temp <- paste0(json.directory,'/',filename.prefix,'-',formatC(page,width=2,format="d",flag="0"),'.',file.extension);
 		write(
 			x    = RCurl::getURL(paste0(URL.hatebase,'/page%3D',page)),
-			file = paste0(filename.prefix,'-',formatC(page,width=2,format="d",flag="0"),'.',file.extension)
+			file = FILE.temp
 			);
 		}
 
-	return(1);
+	DF.Hatebase <- 1;
+	if (convert.to.csv) {
+		DF.Hatebase <- Hatebase.json.to.data.frame(
+			json.directory  = json.directory,
+			csv.directory   = csv.directory,
+			csv.output.file = csv.output.file
+			);
+		}
+
+	return(DF.Hatebase);
 
 	}
 

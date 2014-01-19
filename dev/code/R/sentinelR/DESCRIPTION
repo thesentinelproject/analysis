@@ -1,7 +1,7 @@
 Package: sentinelR
 Type: Package
 Title: The Sentinel Project R package
-Version: 0.0.1
+Version: 0.0.2
 Date: 2014-01-18
 Author: Kenneth Chu
 Maintainer: Kenneth Chu <ken@thesentinelproject.org>

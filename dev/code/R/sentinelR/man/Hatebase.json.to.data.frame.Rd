@@ -9,16 +9,24 @@
 	%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 	}
 \usage{
-	Hatebase.json.to.data.frame(path = NULL, pattern = '^hatebase.+\\.json$', filename = NULL)
+	Hatebase.json.to.data.frame(
+		json.directory = '.',
+		csv.directory = '.',
+		pattern = '^hatebase.+\\.json$',
+		csv.output.file = NULL
+		)
 	}
 \arguments{
-	\item{path}{
-	%%     ~~Describe \code{path} here~~
+	\item{json.directory}{
+		%%     ~~Describe \code{path} here~~
+		}
+	\item{csv.directory}{
+		%%     ~~Describe \code{path} here~~
 		}
 	\item{pattern}{
 		%%     ~~Describe \code{pattern} here~~
 		}
-	\item{filename}{
+	\item{csv.output.file}{
 		%%     ~~Describe \code{filename} here~~
 		}
 	}

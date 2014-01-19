@@ -15,10 +15,17 @@
 		query.type      = "sightings",
 		download.format = "json",
 		filename.prefix = "hatebase",
-		file.extension  = download.format
+		file.extension  = download.format,
+		convert.to.csv  = FALSE,
+		json.directory  = '.',
+		csv.directory   = '.',
+		csv.output.file = NULL
 		)
 	}
 \arguments{
+	\item{api.key}{
+		%%     ~~Describe \code{api.key} here~~
+		}
 	\item{api.url}{
 		%%     ~~Describe \code{api.url} here~~
 		}
@@ -35,13 +42,22 @@
 		%%     ~~Describe \code{download.format} here~~
 		}
 		\item{filename.prefix}{
-	%%     ~~Describe \code{filename.prefix} here~~
+		%%     ~~Describe \code{filename.prefix} here~~
 		}
 	\item{file.extension}{
 		%%     ~~Describe \code{file.extension} here~~
 		}
-	\item{api.key}{
-		%%     ~~Describe \code{api.key} here~~
+	\item{convert.to.csv}{
+		%%     ~~Describe \code{file.extension} here~~
+		}
+	\item{json.directory}{
+		%%     ~~Describe \code{file.extension} here~~
+		}
+	\item{csv.directory}{
+		%%     ~~Describe \code{file.extension} here~~
+		}
+	\item{csv.output.file}{
+		%%     ~~Describe \code{file.extension} here~~
 		}
 	}
 \details{
